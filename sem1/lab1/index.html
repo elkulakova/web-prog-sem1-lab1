@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -47,7 +47,7 @@
         <article class="product-card">
             <img
                     src="cup.png"
-                    title="чйная пара с ягодным узором"
+                    title="чайная пара с ягодным узором"
                     alt="кружечка с блюдечком с узором клубнички"
                     class="product-img"
             >
@@ -84,7 +84,7 @@
             <img
                     src="socks.png"
                     title="носки 'социальная батарейка 1%'"
-                    alt="махровые ноские"
+                    alt="махровые носки"
                     class="product-img"
             >
             <h3 class="product-title">носки «социальная батарейка 1%»</h3>
@@ -141,9 +141,31 @@
                 instagram
             </a>
         </div>
-        
     </div>
 </footer>
+
+
+<div id="cart-modal" class="modal-backdrop">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>ваша корзина</h2>
+            <button id="close-cart-btn" class="close-btn">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div id="cart-items-list" class="cart-items-list">
+                <p class="empty-cart-msg">здесь пока ничего нет 🛌</p>
+            </div>
+
+            <div class="cart-summary">
+                <span>итого:</span>
+                <span id="cart-total-price">0 ₽</span>
+            </div>
+
+            <button id="goto-order-btn" class="primary-btn" disabled>оформить заказ</button>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
