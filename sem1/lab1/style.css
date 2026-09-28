@@ -172,13 +172,8 @@ body {
     transition: all 0.2s ease;
 }
 
-.footer-logo-tg {
+.footer-logo-tg, .footer-logo-inst {
     width: 20px;
-    height: auto;
-}
-
-.footer-logo-inst {
-    width: 20px; 
     height: auto;
 }
 
