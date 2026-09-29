@@ -33,13 +33,26 @@ function closeModal(modal) {
     modal.classList.remove('is-open');
 }
 
+function resetOrderForm() {
+    orderForm.reset();
+    clearError(firstNameInput, firstNameError);
+    clearError(lastNameInput, lastNameError);
+    clearError(addressInput, addressError);
+    clearError(phoneInput, phoneError);
+}
+
+function closeOrderModal() {
+    closeModal(orderModal);
+    resetOrderForm();
+}
+
 openCartBtn.addEventListener('click', () => {
     renderCart();
     openModal(cartModal);
 });
 
 closeCartBtn.addEventListener('click', () => closeModal(cartModal));
-closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
+closeOrderBtn.addEventListener('click', closeOrderModal);
 closeSuccessBtn.addEventListener('click', () => closeModal(successModal));
 
 gotoOrderBtn.addEventListener('click', () => {
@@ -51,7 +64,11 @@ gotoOrderBtn.addEventListener('click', () => {
 [cartModal, orderModal, successModal].forEach(modal => {
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-            closeModal(modal);
+            if (modal === orderModal) {
+                closeOrderModal();
+            } else {
+                closeModal(modal);
+            }
         }
     });
 });
@@ -148,3 +165,23 @@ function validatePhone() {
 firstNameInput.addEventListener('input', validateFirstName);
 lastNameInput.addEventListener('input', validateLastName);
 addressInput.addEventListener('input', validateAddress);
+
+orderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const isFirstNameValid = validateFirstName();
+    const isLastNameValid = validateLastName();
+    const isAddressValid = validateAddress();
+    const isPhoneValid = validatePhone();
+
+    if (!isFirstNameValid || !isLastNameValid || !isAddressValid || !isPhoneValid) {
+        return;
+    }
+
+    cart = [];
+    saveCart();
+
+    closeModal(orderModal);
+    openModal(successModal);
+    resetOrderForm();
+});
