@@ -398,6 +398,26 @@ body {
     cursor: not-allowed;
 }
 
+.modal-success {
+    text-align: center;
+    align-items: center;
+}
+
+.success-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.modal-success h2 {
+    margin: 0 0 10px 0;
+}
+
+.modal-success p {
+    color: #7c6f64;
+    margin: 0 0 20px 0;
+    font-size: 15px;
+}
+
 .form-input.invalid {
     border-color: #e74c3c;
     background-color: #fdf2f2;
