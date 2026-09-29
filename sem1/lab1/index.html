@@ -202,6 +202,30 @@
                     <span class="error-msg" id="phone-error"></span>
                 </div>
 
+                <form>
+                    <p>способ оплаты</p>
+
+                    <div>
+                        <input type="radio" id="sbp" name="payment-type" value="sbp" checked>
+                        <label for="sbp">СБП</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="card" name="payment-type" value="card">
+                        <label for="card">картой онлайн</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="card-off" name="payment-type" value="card-off">
+                        <label for="card-off">картой при получении</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="cash" name="payment-type" value="cash">
+                        <label for="cash">наличными при получении</label>
+                    </div>
+                </form>
+
                 <button type="submit" class="primary-btn">создать заказ</button>
             </form>
         </div>
