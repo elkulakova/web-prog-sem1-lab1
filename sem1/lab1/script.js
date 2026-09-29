@@ -55,3 +55,96 @@ gotoOrderBtn.addEventListener('click', () => {
         }
     });
 });
+
+phoneInput.addEventListener('input', (e) => {
+    let digits = e.target.value.replace(/\D/g, '');
+
+    if (digits.startsWith('7') || digits.startsWith('8')) {
+        digits = digits.substring(1);
+    }
+
+    let formatted = '+7 ';
+    if (digits.length > 0) {
+        formatted += '(' + digits.substring(0, 3);
+    }
+    if (digits.length >= 4) {
+        formatted += ') ' + digits.substring(3, 6);
+    }
+    if (digits.length >= 7) {
+        formatted += '-' + digits.substring(6, 8);
+    }
+    if (digits.length >= 9) {
+        formatted += '-' + digits.substring(8, 10);
+    }
+
+    e.target.value = digits.length === 0 ? '' : formatted;
+    validatePhone();
+});
+
+function showError(input, errorEl, message) {
+    input.classList.add('invalid');
+    errorEl.textContent = message;
+}
+
+function clearError(input, errorEl) {
+    input.classList.remove('invalid');
+    errorEl.textContent = '';
+}
+
+function validateFirstName() {
+    const val = firstNameInput.value.trim();
+    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]{2,}$/;
+    if (!val) {
+        showError(firstNameInput, firstNameError, 'введите имя');
+        return false;
+    } else if (!nameRegex.test(val)) {
+        showError(firstNameInput, firstNameError, 'имя должно содержать от 2 букв');
+        return false;
+    }
+    clearError(firstNameInput, firstNameError);
+    return true;
+}
+
+function validateLastName() {
+    const val = lastNameInput.value.trim();
+    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s\-]{2,}$/;
+    if (!val) {
+        showError(lastNameInput, lastNameError, 'введите фамилию');
+        return false;
+    } else if (!nameRegex.test(val)) {
+        showError(lastNameInput, lastNameError, 'фамилия должна содержать от 2 букв');
+        return false;
+    }
+    clearError(lastNameInput, lastNameError);
+    return true;
+}
+
+function validateAddress() {
+    const val = addressInput.value.trim();
+    if (!val) {
+        showError(addressInput, addressError, 'укажите адрес доставки');
+        return false;
+    } else if (val.length < 5) {
+        showError(addressInput, addressError, 'адрес слишком короткий (минимум 5 символов)');
+        return false;
+    }
+    clearError(addressInput, addressError);
+    return true;
+}
+
+function validatePhone() {
+    const digits = phoneInput.value.replace(/\D/g, '');
+    if (!digits) {
+        showError(phoneInput, phoneError, 'укажите номер телефона');
+        return false;
+    } else if (digits.length !== 11) {
+        showError(phoneInput, phoneError, 'введите полный номер телефона (11 цифр)');
+        return false;
+    }
+    clearError(phoneInput, phoneError);
+    return true;
+}
+
+firstNameInput.addEventListener('input', validateFirstName);
+lastNameInput.addEventListener('input', validateLastName);
+addressInput.addEventListener('input', validateAddress);
