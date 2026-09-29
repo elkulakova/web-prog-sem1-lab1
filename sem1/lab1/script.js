@@ -24,3 +24,34 @@ const firstNameError = document.getElementById('first-name-error');
 const lastNameError = document.getElementById('last-name-error');
 const addressError = document.getElementById('address-error');
 const phoneError = document.getElementById('phone-error');
+
+function openModal(modal) {
+    modal.classList.add('is-open');
+}
+
+function closeModal(modal) {
+    modal.classList.remove('is-open');
+}
+
+openCartBtn.addEventListener('click', () => {
+    renderCart();
+    openModal(cartModal);
+});
+
+closeCartBtn.addEventListener('click', () => closeModal(cartModal));
+closeOrderBtn.addEventListener('click', () => closeModal(orderModal));
+closeSuccessBtn.addEventListener('click', () => closeModal(successModal));
+
+gotoOrderBtn.addEventListener('click', () => {
+    if (cart.length === 0) return;
+    closeModal(cartModal);
+    openModal(orderModal);
+});
+
+[cartModal, orderModal, successModal].forEach(modal => {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal(modal);
+        }
+    });
+});
