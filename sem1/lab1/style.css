@@ -430,3 +430,51 @@ body {
     display: block;
     min-height: 16px;
 }
+
+@media (max-width: 600px) {
+    .header {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+    .cart-btn {
+        position: static;
+        width: 100%;
+    }
+    .footer-container {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding: 16px 10px;
+    }
+    .modal {
+        padding: 16px;
+    }
+    .product-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+    }
+    .header {
+        padding: 20px 16px;
+    }
+    .cart-btn {
+        padding: 8px 14px;
+        font-size: 15px;
+        right: 16px;
+    }
+    .header-main h1 {
+        font-size: 22px;
+    }
+    .catalog {
+        gap: 16px;
+    }
+}
