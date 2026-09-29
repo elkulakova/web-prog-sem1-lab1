@@ -1,3 +1,5 @@
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
 const cartModal = document.getElementById('cart-modal');
 const orderModal = document.getElementById('order-modal');
 const successModal = document.getElementById('success-modal');
@@ -72,6 +74,19 @@ gotoOrderBtn.addEventListener('click', () => {
         }
     });
 });
+
+function updateCartBadge() {
+    let totalCount = 0;
+    for (let i = 0; i < cart.length; i++) {
+        totalCount += cart[i].quantity;
+    }
+    cartCountEl.textContent = totalCount;
+}
+
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+}
 
 phoneInput.addEventListener('input', (e) => {
     let digits = e.target.value.replace(/\D/g, '');
@@ -185,3 +200,5 @@ orderForm.addEventListener('submit', (e) => {
     openModal(successModal);
     resetOrderForm();
 });
+
+updateCartBadge();
