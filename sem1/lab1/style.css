@@ -286,26 +286,53 @@ body {
 .cart-item-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+}
+
+.qty-control {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    background-color: #f0ede6;
+    border: 1px solid #e5e0d8;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .qty-btn {
-    width: 26px;
-    height: 26px;
-    border: 1px solid #e5e0d8;
-    background: #faf9f6;
-    border-radius: 6px;
+    width: 30px;
+    height: 100%;
+    border: none;
+    background: transparent;
     cursor: pointer;
     font-family: inherit;
+    font-size: 16px;
     font-weight: 700;
     color: #2c3e50;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    transition: background-color 0.15s ease;
 }
 
 .qty-btn:hover {
     background-color: #e5e0d8;
+}
+
+.cart-item-qty {
+    min-width: 28px;
+    height: 100%;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #2c3e50;
+    border-left: 1px solid #e5e0d8;
+    border-right: 1px solid #e5e0d8;
+    box-sizing: border-box;
 }
 
 .remove-btn {

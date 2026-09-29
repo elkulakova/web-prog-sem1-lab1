@@ -88,6 +88,131 @@ function saveCart() {
     updateCartBadge();
 }
 
+function removeFromCart(id) {
+    const newCart = [];
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id !== id) {
+            newCart.push(cart[i]);
+        }
+    }
+    cart = newCart;
+}
+
+function findCartItem(id) {
+    for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === id) {
+            return cart[i];
+        }
+    }
+    return null;
+}
+
+function renderCart() {
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = '<p class="empty-cart-msg">здесь пока ничего нет 🛌</p>';
+        cartTotalPrice.textContent = '0 ₽';
+        gotoOrderBtn.disabled = true;
+        return;
+    }
+
+    gotoOrderBtn.disabled = false;
+    let totalSum = 0;
+    cartItemsList.innerHTML = '';
+
+    for (let i = 0; i < cart.length; i++) {
+        const item = cart[i];
+        const itemTotal = item.price * item.quantity;
+        totalSum += itemTotal;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML =
+            '<div class="cart-item-info">' +
+                '<div class="cart-item-title">' + item.title + '</div>' +
+                '<div class="cart-item-price">' + item.price.toLocaleString('ru-RU') + ' ₽ × ' + item.quantity + '</div>' +
+            '</div>' +
+            '<div class="cart-item-actions">' +
+                '<div class="qty-control">' +
+                    '<button class="qty-btn" data-id="' + item.id + '" data-action="decrease">-</button>' +
+                    '<span class="cart-item-qty">' + item.quantity + '</span>' +
+                    '<button class="qty-btn" data-id="' + item.id + '" data-action="increase">+</button>' +
+                '</div>' +
+                '<button class="remove-btn" data-id="' + item.id + '" title="Удалить товар">&times;</button>' +
+            '</div>';
+        cartItemsList.appendChild(itemEl);
+
+        const decreaseBtn = itemEl.querySelector('[data-action="decrease"]');
+        const increaseBtn = itemEl.querySelector('[data-action="increase"]');
+        const removeBtn = itemEl.querySelector('.remove-btn');
+
+        decreaseBtn.addEventListener('click', function () {
+            const cartItem = findCartItem(item.id);
+            if (!cartItem) {
+                return;
+            }
+            cartItem.quantity -= 1;
+            if (cartItem.quantity <= 0) {
+                removeFromCart(item.id);
+            }
+            saveCart();
+            renderCart();
+        });
+
+        increaseBtn.addEventListener('click', function () {
+            const cartItem = findCartItem(item.id);
+            if (!cartItem) {
+                return;
+            }
+            cartItem.quantity += 1;
+            saveCart();
+            renderCart();
+        });
+
+        removeBtn.addEventListener('click', function () {
+            removeFromCart(item.id);
+            saveCart();
+            renderCart();
+        });
+    }
+
+    cartTotalPrice.textContent = totalSum.toLocaleString('ru-RU') + ' ₽';
+}
+
+for (let i = 0; i < addToCartBtns.length; i++) {
+    addToCartBtns[i].addEventListener('click', function (e) {
+        const button = e.target;
+        const card = button.closest('.product-card');
+        const id = button.getAttribute('data-id');
+        const title = card.querySelector('.product-title').textContent;
+        const priceText = card.querySelector('.product-price').textContent;
+        const price = parseInt(priceText.replace(/\s|₽/g, ''), 10);
+
+        const existingItem = findCartItem(id);
+
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                id: id,
+                title: title,
+                price: price,
+                quantity: 1
+            });
+        }
+
+        saveCart();
+
+        const originalText = button.textContent;
+        button.textContent = 'добавлено 🤲🏼';
+        button.style.backgroundColor = '#bd9386';
+
+        setTimeout(function () {
+            button.textContent = originalText;
+            button.style.backgroundColor = '';
+        }, 800);
+    });
+}
+
 phoneInput.addEventListener('input', (e) => {
     let digits = e.target.value.replace(/\D/g, '');
 
